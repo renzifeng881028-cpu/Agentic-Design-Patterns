@@ -5,7 +5,7 @@ from typing import Optional
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.output_parsers import StrOutputParser
-from langchain_core.runnables import Runnable, RunnableParallel, RunnablePassthrough
+from langchain_core.runnables import Runnable, RunnableParallel, RunnablePassthrough, RunnableLambda
 
 # Colab 代码链接：https://colab.research.google.com/drive/1uK1r9p-5sdX0ffMjAi_dbIkaMedb1sTj
 
@@ -40,6 +40,7 @@ summarize_chain: Runnable = (
     ])
     | llm
     | StrOutputParser()
+    | RunnableLambda(lambda x: print(f"\n--- Summarize_chain Parser Output ---\n {x}") or x)
 )
 
 questions_chain: Runnable = (
